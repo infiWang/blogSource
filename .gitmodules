@@ -1,0 +1,6 @@
+[submodule "themes/material-x"]
+	path = themes/material-x
+	url = https://github.com/infiWang/hexo-theme-material-x.git
+[submodule "source"]
+	path = source
+	url = https://github.com/infiWang/HexoBlogSource.git
