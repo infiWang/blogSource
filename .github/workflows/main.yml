@@ -1,6 +1,9 @@
 name: Deploy Blog
 
-on: [push]
+on: 
+  push:
+    branches: 
+      - master
 
 jobs:
   build:
@@ -40,6 +43,12 @@ jobs:
         npm i -g hexo-cli
         npm install
   
-    - name: Deploy
+    - name: Generate and Deploy
       run: |
         hexo g -d
+
+    - name: Cloudflare Purge Cache
+      uses: jakejarvis/cloudflare-purge-action@v0.3.0
+      env:
+        CLOUDFLARE_ZONE: ${{ secrets.actionCloudflareZoneID }}
+        CLOUDFLARE_TOKEN: ${{ secrets.actionCloudflareToken }}
