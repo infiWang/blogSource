@@ -110,5 +110,5 @@ feed:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/infiWang/infiWang.github.io
+  repo: git@github.com:infiWang/infiWang.github.io.git
   branch: master
