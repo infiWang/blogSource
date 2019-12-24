@@ -1,6 +1,6 @@
 name: Deploy Blog
 
-on: [push] # 当有新push时运行
+on: [push]
 
 jobs:
   build:
@@ -12,14 +12,6 @@ jobs:
         nodeVersion: [12.x]
     
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-      
-    - name: Set up Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.nodeVersion }}
-    
     - name: Setup git env
       env:
         ACTION_KEY: ${{ secrets.actionKey }}
@@ -30,6 +22,19 @@ jobs:
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         git config --global user.name 'infiWang'
         git config --global user.email 'root@infi.wang'
+        
+    - name: Checkout Base
+      uses: actions/checkout@v2
+    
+    - name: Checkout Submodules
+      run: |
+        git submodule update --init --recursive --force
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.nodeVersion }}
+    
     - name: Install Hexo and npm dependencies
       run: |
         npm i -g hexo-cli
