@@ -1,4 +1,4 @@
-name: Deploy Blog
+name: Update Blog
 
 on: 
   push:
@@ -12,6 +12,8 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
+        gitUsername: [infiWang]
+        gitUserEmail: [root@infi.wang]
         nodeVersion: [12.x]
     
     steps:
@@ -23,8 +25,8 @@ jobs:
         echo "$ACTION_KEY" >> ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
-        git config --global user.name 'infiWang'
-        git config --global user.email 'root@infi.wang'
+        git config --local user.name '${{ matrix.gitUsername }}'
+        git config --local user.email '${{ matrix.gitUserEmail }}'
         
     - name: Checkout Base
       uses: actions/checkout@v2
