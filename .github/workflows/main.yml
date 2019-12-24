@@ -6,6 +6,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        nodeVersion: [12.x]
     
     steps:
     - name: Checkout
@@ -14,14 +18,14 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: "12.x"
+        node-version: ${{ matrix.nodeVersion }}
     
     - name: Setup git env
       env:
-        ACTION_DEPLOY_KEY: ${{ secrets.ACTION_DEPLOY_KEY }}
+        ACTION_KEY: ${{ secrets.actionKey }}
       run: |
         mkdir -p ~/.ssh/
-        echo "$ACTION_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+        echo "$ACTION_KEY" >> ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         git config --global user.name 'infiWang'
@@ -33,4 +37,4 @@ jobs:
   
     - name: Deploy
       run: |
-        hexo clean && hexo generate -d
+        hexo g -d
