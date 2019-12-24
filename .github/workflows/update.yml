@@ -1,0 +1,44 @@
+name: CI
+
+on: 
+  repository_dispatch: 
+    type: [updatedSource]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        gitUsername: [infiWang]
+        gitUserEmail: [root@infi.wang]
+    
+    steps:
+    - name: Get timestamp
+      uses: gerred/actions/current-time@master
+      id: currentTime
+      
+    - name: Setup git env
+      env:
+        ACTION_KEY: ${{ secrets.actionKey }}
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$ACTION_KEY" >> ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        git config --global user.name '${{ matrix.gitUsername }}'
+        git config --global user.email '${{ matrix.gitUserEmail }}'
+        
+    - name: Checkout Base
+      uses: actions/checkout@v2
+    
+    - name: Checkout Submodules
+      run: |
+        git submodule update --init --recursive --force
+    
+    - name: Update git repo content
+      run: |
+        git add -A
+        git commit -m "Update. ${{ steps.currentTime.outputs.time }}"
+        git push
