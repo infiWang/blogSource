@@ -1,8 +1,9 @@
-name: Submodule CI
+name: HexoBlogFiles CI
 
 on: 
   repository_dispatch: 
     type: [updatedSource]
+  
 
 jobs:
   build:
@@ -15,28 +16,24 @@ jobs:
         gitUserEmail: [root@infi.wang]
     
     steps:
-    - name: Get timestamp
+    - name: Set up timestamp module
       uses: gerred/actions/current-time@master
       id: currentTime
-      
+    
     - name: Setup git env
-      env:
-        ACTION_KEY: ${{ secrets.actionKey }}
       run: |
-        mkdir -p ~/.ssh/
-        echo "$ACTION_KEY" >> ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
         git config --global user.name '${{ matrix.gitUsername }}'
         git config --global user.email '${{ matrix.gitUserEmail }}'
-        
+    
     - name: Checkout Base
       uses: actions/checkout@v2
+      with: 
+        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Checkout Submodules
       run: |
-        git submodule update --init --recursive --force
-    
+        git submodule update --init --remote
+
     - name: Update git repo content
       run: |
         git add -A
