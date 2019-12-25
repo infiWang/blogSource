@@ -1,4 +1,4 @@
-name: Update Blog
+name: Blog CI
 
 on: 
   push:
