@@ -45,6 +45,13 @@ jobs:
         npm i -g hexo-cli
         npm install
   
+    - name: Pull history files
+      run: |
+        git clone --depth 1 --branch=master https://github.com/infiWang/infiWang.github.io.git .deploy_git
+        cd .deploy_git
+        find . -path ./.git -prune -o -exec rm -rf {} \; 2> /dev/null
+        cd ..
+  
     - name: Generate and Deploy
       run: |
         hexo g -d
