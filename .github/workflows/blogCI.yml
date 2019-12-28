@@ -47,7 +47,7 @@ jobs:
   
     - name: Pull history files
       run: |
-        git clone --depth 1 --branch=master https://github.com/infiWang/infiWang.github.io.git .deploy_git
+        git clone --branch=master https://github.com/infiWang/infiWang.github.io.git .deploy_git
         cd .deploy_git
         find . -path ./.git -prune -o -exec rm -rf {} \;
         cd ..
