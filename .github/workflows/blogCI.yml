@@ -48,8 +48,7 @@ jobs:
     - name: Pull history files
       run: |
         git clone --branch=master https://github.com/infiWang/infiWang.github.io.git .deploy_git
-        find .deploy_git -path .deploy_git/.git -prune -o -exec rm -rf {} \;
-  
+
     - name: Generate and Deploy
       run: |
         hexo g -d
