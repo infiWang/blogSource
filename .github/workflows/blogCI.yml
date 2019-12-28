@@ -49,7 +49,7 @@ jobs:
       run: |
         git clone --depth 1 --branch=master https://github.com/infiWang/infiWang.github.io.git .deploy_git
         cd .deploy_git
-        find . -path ./.git -prune -o -exec rm -rf {} \; 2> /dev/null
+        find . -path ./.git -prune -o -exec rm -rf {} \;
         cd ..
   
     - name: Generate and Deploy
