@@ -49,6 +49,7 @@ jobs:
       run: |
         git clone --branch=master https://github.com/infiWang/infiWang.github.io.git .deploy_git
         cd .deploy_git
+        ls -la
         find . -path ./.git -prune -o -exec rm -rf {} \;
         cd ..
   
