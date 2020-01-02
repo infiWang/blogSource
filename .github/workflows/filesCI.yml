@@ -2,7 +2,7 @@ name: HexoBlogFiles CI
 
 on: 
   repository_dispatch: 
-    type: [updatedSource]
+    type: [updatedSource, updatedTheme]
   
 
 jobs:
