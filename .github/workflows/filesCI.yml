@@ -1,8 +1,8 @@
-name: HexoBlogFiles CI
+name: HexoFiles CI
 
 on: 
   repository_dispatch: 
-    type: [updatedSource, updatedTheme]
+    type: [updatedPosts]
   
 
 jobs:
@@ -21,25 +21,26 @@ jobs:
       id: currentTime
     
     - name: Setup git env
-      env:
-        ACTION_KEY: ${{ secrets.actionCiSelfupdateKey }}
       run: |
-        mkdir -p ~/.ssh/
-        echo "$ACTION_KEY" >> ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         git config --global user.name '${{ matrix.gitUsername }}'
         git config --global user.email '${{ matrix.gitUserEmail }}'
     
     - name: Checkout Base
       uses: actions/checkout@v2
+      with: 
+        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Checkout Submodules
       run: |
         git submodule update --init --remote
 
-    - name: Update git repo content
+    - name: Update and commit content
       run: |
         git add -A
         git commit -m "Update. ${{ steps.currentTime.outputs.time }}"
-        git push
+    
+    - name: Push to remote repo
+      uses: ad-m/github-push-action@v0.5.0
+      with: 
+        github_token: ${{ secrets.tokenGithubRepo }}

@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: Setup git env
       env:
-        ACTION_KEY: ${{ secrets.actionCiDeployKey }}
+        ACTION_KEY: ${{ secrets.sshCiGithubPages }}
       run: |
         mkdir -p ~/.ssh/
         echo "$ACTION_KEY" >> ~/.ssh/id_rsa
