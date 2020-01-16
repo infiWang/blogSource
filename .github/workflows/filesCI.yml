@@ -12,7 +12,6 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        tokenGithub: ${{ secrets.tokenGithubRepo }}
         gitUsername: [infiWang]
         gitUserEmail: [root@infi.wang]
     
@@ -29,7 +28,7 @@ jobs:
     - name: Checkout Base
       uses: actions/checkout@v2
       with: 
-        token: ${{ matrix.tokenGithub }}
+        token: ${{ secrets.tokenGithubRepo }}
     
     - name: Checkout Submodules
       run: |
@@ -43,4 +42,4 @@ jobs:
     - name: Push to remote repo
       uses: ad-m/github-push-action@v0.5.0
       with: 
-        github_token: ${{ matrix.tokenGithub }}
+        github_token: ${{ secrets.tokenGithubRepo }}
