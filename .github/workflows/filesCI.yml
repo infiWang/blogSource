@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        tokenGithub: ${{ secret.tokenGithubRepo }}
+        tokenGithub: ${{ secrets.tokenGithubRepo }}
         gitUsername: [infiWang]
         gitUserEmail: [root@infi.wang]
     
