@@ -40,10 +40,11 @@ jobs:
       with:
         node-version: ${{ matrix.nodeVersion }}
     
-    - name: Install Hexo and npm dependencies
+    - name: Install yarn, Hexo and js dependencies
       run: |
-        npm i -g hexo-cli
-        npm install
+        npm i -g yarn
+	yarn global add hexo-cli
+        yarn install
   
     - name: Pull history files
       run: |
