@@ -17,20 +17,12 @@ jobs:
         nodeVersion: [12.x]
     
     steps:
-    - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.2.0
-      with: 
-        ssh-private-key: |
-          ${{ secrets.sshCiGithubPages }}
-          ${{ secrets.sshVolantisThemePulling }}
-    
-    - name: Add Known Hosts
+    - name: Setup SSH
       run: |
+        mkdir -p ~/.ssh/
         ssh-keyscan github.com >> ~/.ssh/known_hosts
     
     - name: Setup git env
-      env:
-        ACTION_KEY: ${{ secrets.sshCiGithubPages }}
       run: |
         git config --global user.name '${{ matrix.gitUsername }}'
         git config --global user.email '${{ matrix.gitUserEmail }}'
@@ -40,7 +32,10 @@ jobs:
     
     - name: Checkout Submodules
       run: |
+        echo ${{ secrets.sshVolantisThemePulling }} > ~/.ssh/id_ecdsa
+        chmod 600 ~/.ssh/id_ecdsa
         git submodule update --init --recursive --force
+        rm ~/.ssh/id_ecdsa
     
     - name: Set up Node.js
       uses: actions/setup-node@v1
@@ -59,7 +54,10 @@ jobs:
 
     - name: Generate and Deploy
       run: |
+        echo ${{ secrets.sshCiGithubPages }} > ~/.ssh/id_ecdsa
+        chmod 600 ~/.ssh/id_ecdsa
         hexo g -d
+        rm ~/.ssh/id_ecdsa
 
     - name: Cloudflare Purge Cache
       uses: jakejarvis/cloudflare-purge-action@v0.3.0
