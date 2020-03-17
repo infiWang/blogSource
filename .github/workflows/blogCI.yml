@@ -24,16 +24,13 @@ jobs:
         mkdir -p ~/.ssh/
         echo "$ACTION_KEY" >> ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        ssh-add ~/.ssh/id_rsa
+        echo "$ACTION_KEY" >> ~/.ssh/id_ecdsa
+        chmod 600 ~/.ssh/id_ecdsa
+        ssh-add ~/.ssh/id_ecdsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         git config --global user.name '${{ matrix.gitUsername }}'
         git config --global user.email '${{ matrix.gitUserEmail }}'
-        
-    - name: Add theme pulling key
-      env:
-        ACTION_KEY: ${{ secrets.sshVolantisThemePulling }}
-      run: |
-        echo "$ACTION_KEY" >> ~/.ssh/id_ecdsa
-        chmod 600 ~/.ssh/id_ecdsa
         
     - name: Checkout Base
       uses: actions/checkout@v2
