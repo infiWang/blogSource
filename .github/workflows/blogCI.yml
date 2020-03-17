@@ -40,12 +40,12 @@ jobs:
       with:
         node-version: ${{ matrix.nodeVersion }}
     
-    - name: Install yarn, Hexo and js dependencies
+    - name: Install yarn, Hexo and nodejs packages
       run: |
-        npm i -g yarn
-	yarn global add hexo-cli
+        npm i yarn -g
+        yarn global add hexo-cli
         yarn install
-  
+        
     - name: Pull history files
       run: |
         git clone --branch=master https://github.com/infiWang/infiWang.github.io.git .deploy_git
