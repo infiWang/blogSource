@@ -18,18 +18,11 @@ jobs:
     
     steps:
     - name: Install Github.io Deploy SSH key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.sshCiGithubPages }}
-        name: githubio_ecdsa
-        known_hosts: github.com
-    
-    - name: Install Volantis Theme Pulling SSH key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.sshVolantisThemePulling }}
-        name: volantisPull_ecdsa
-        known_hosts: github.com
+      uses: webfactory/ssh-agent@v0.2.0
+      with: 
+        ssh-private-key: |
+          ${{ secrets.sshCiGithubPages }}
+          ${{ secrets.sshVolantisThemePulling }}
     
     - name: Setup git env
       env:
