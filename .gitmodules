@@ -3,4 +3,4 @@
 	url = https://github.com/infiWang/HexoBlogSource.git
 [submodule "themes/volantis"]
 	path = themes/volantis
-	url = https://github.com/infiWang/hexo-theme-volantis-infiBlog.git
+	url = git@github.com:infiWang/hexo-theme-volantis-infiBlog.git
