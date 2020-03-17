@@ -17,12 +17,16 @@ jobs:
         nodeVersion: [12.x]
     
     steps:
-    - name: Install Github.io Deploy SSH key
+    - name: Install SSH key
       uses: webfactory/ssh-agent@v0.2.0
       with: 
         ssh-private-key: |
           ${{ secrets.sshCiGithubPages }}
           ${{ secrets.sshVolantisThemePulling }}
+    
+    - name: Add Known Hosts
+      run: |
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
     
     - name: Setup git env
       env:
