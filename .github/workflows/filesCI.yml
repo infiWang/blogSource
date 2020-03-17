@@ -33,6 +33,7 @@ jobs:
     - name: Checkout Submodules
       run: |
         git submodule update --init --remote
+        git submodule sync
 
     - name: Update and commit content
       run: |
