@@ -28,6 +28,12 @@ jobs:
         git config --global user.name '${{ matrix.gitUsername }}'
         git config --global user.email '${{ matrix.gitUserEmail }}'
         
+    - name: Add theme pulling key
+      env:
+        ACTION_KEY: ${{ secrets.sshVolantisThemePulling }}
+      run: |
+        echo "$ACTION_KEY" >> ~/.ssh/id_rsa
+        
     - name: Checkout Base
       uses: actions/checkout@v2
     
