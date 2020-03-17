@@ -46,8 +46,8 @@ jobs:
     
     - name: Install yarn, Hexo and nodejs packages
       run: |
+        npm i hexo-cli -g
         npm i yarn -g
-        yarn global add hexo-cli
         yarn install
         
     - name: Pull history files
