@@ -29,8 +29,10 @@ jobs:
       env:
         ACTION_KEY: ${{ secrets.sshVolantisThemePulling }}
       run: |
+        mkdir -p ~/.ssh/
         echo "$ACTION_KEY" >> ~/.ssh/id_ecdsa
         chmod 600 ~/.ssh/id_ecdsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
     
     - name: Checkout Base
       uses: actions/checkout@v2
