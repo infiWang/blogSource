@@ -94,6 +94,11 @@ plugin:
   - hexo-generator-feed
 theme: volantis
 
+lazyload:
+  enable: true
+  onlypost: false
+  loadingImg: https://cdn.infi.wang/pic/blog/assets/loading.gif
+
 feed: 
   type: atom
   path: atom.xml
