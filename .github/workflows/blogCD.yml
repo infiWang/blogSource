@@ -3,7 +3,7 @@ name: Blog CD
 on: 
   push:
     branches: 
-      - master
+      - main
 
 jobs:
   build:
@@ -52,7 +52,7 @@ jobs:
         
     - name: Pull history files
       run: |
-        git clone --branch=master https://github.com/infiWang/infiWang.github.io.git .deploy_git
+        git clone --branch=main https://github.com/infiWang/infiWang.github.io.git .deploy_git
 
     - name: Generate and Deploy
       env:
