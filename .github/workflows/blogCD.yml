@@ -29,15 +29,9 @@ jobs:
         
     - name: Checkout Base
       uses: actions/checkout@v2
-    
-    - name: Checkout Submodules
-      env:
-        sshKey: ${{ secrets.sshVolantisThemePulling }}
-      run: |
-        echo "$sshKey" > ~/.ssh/id_ecdsa
-        chmod 600 ~/.ssh/id_ecdsa
-        git submodule update --init --recursive --force
-        rm ~/.ssh/id_ecdsa
+      with:
+        ref: main
+        submodules: true
     
     - name: Set up Node.js
       uses: actions/setup-node@v1
