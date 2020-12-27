@@ -1,0 +1,55 @@
+name: HexoFiles CI
+
+on: 
+  repository_dispatch: 
+    type: [updatedPosts]
+  
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        gitUsername: [infiWang]
+        gitUserEmail: [infiwang@protonmail.com]
+    
+    steps:
+    - name: Set up timestamp module
+      uses: gerred/actions/current-time@master
+      id: currentTime
+    
+    - name: Setup git env
+      run: |
+        git config --global user.name '${{ matrix.gitUsername }}'
+        git config --global user.email '${{ matrix.gitUserEmail }}'
+        
+    - name: Add theme pulling key
+      env:
+        ACTION_KEY: ${{ secrets.sshVolantisThemePulling }}
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$ACTION_KEY" >> ~/.ssh/id_ecdsa
+        chmod 600 ~/.ssh/id_ecdsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+    
+    - name: Checkout Base
+      uses: actions/checkout@v2
+      with: 
+        token: ${{ secrets.tokenGithubRepo }}
+    
+    - name: Checkout Submodules
+      run: |
+        git submodule update --init --remote
+        git submodule sync
+
+    - name: Update and commit content
+      run: |
+        git add -A
+        git commit -m "Update. ${{ steps.currentTime.outputs.time }}"
+    
+    - name: Push to remote repo
+      uses: ad-m/github-push-action@v0.5.0
+      with: 
+        github_token: ${{ secrets.tokenGithubRepo }}
