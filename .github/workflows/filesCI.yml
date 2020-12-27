@@ -37,6 +37,7 @@ jobs:
     - name: Checkout Base
       uses: actions/checkout@v2
       with: 
+        ref: main
         token: ${{ secrets.tokenGithubRepo }}
     
     - name: Checkout Submodules
@@ -52,4 +53,5 @@ jobs:
     - name: Push to remote repo
       uses: ad-m/github-push-action@v0.5.0
       with: 
+        branch: ${{ github.ref }}
         github_token: ${{ secrets.tokenGithubRepo }}
