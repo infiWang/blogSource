@@ -41,6 +41,10 @@ jobs:
         token: ${{ secrets.tokenGithubRepo }}
         submodules: true
 
+    - name: Update Submodules
+      run: |
+        git submodule update --init --remote
+
     - name: Update and commit content
       run: |
         git add -A
