@@ -119,4 +119,4 @@ feed:
 deploy:
   type: git
   repo: git@github.com:infiWang/infiWang.github.io.git
-  branch: master
+  branch: main
