@@ -51,10 +51,10 @@ cover:
       icon: fas fa-archive
       img: #
       url: archives/
-    - name: curl dl.infi
-      icon: fas fa-file-download
+    - name: cat ~/pgp.pub
+      icon: fas fa-key
       img: #
-      url: https://dl.infi.wang
+      url: https://pgp.infi.wang
     # - name: 项目
     #   icon: fas fa-code-branch
     #   url: projects/
