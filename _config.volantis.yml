@@ -313,7 +313,7 @@ sidebar:
       shape: rectangle # circle, rectangle
       url: /about/
       title:
-      subtitle: 'See-through the barrier'
+      subtitle: 'Seek & Find'
       jinrishici: false # Poetry Today. You can set a string, and it will be displayed when loading fails.
       social: true
     # ---------------------------------------
