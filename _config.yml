@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: UNDEFINED REFERENCE
-subtitle: 'Seek and find. '
+title: Temporal Aliasing
+subtitle: ''
 description: infiWang's Blog
 keywords: 
 author: infiWang
@@ -118,5 +118,5 @@ feed:
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:infiWang/infiWang.github.io.git
+  repo: git@github.com:infiWang/blog.git
   branch: main
